@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+#search {
+  text-align:left;
+}
+.searchTitle {
+  font-weight:bold;
+  font-size:1.2em;
+  margin-bottom:5px;
+}
+.searchBox {
+  display: inline-block;
+  border: 1px solid black;
+  padding:20px;
+}
+th {
+  max-width:400px !important;
+  min-width:200px !important;
+  text-align: center !important;
+  font-size:1.1em;
+  padding: 10px !important;
+  border-bottom:1px solid black;
+  border-top:1px solid black;
+  border-right: 1px solid black;
+  border-left:1px solid black;
+}
+
+tbody tr:nth-child(even){
+  background-color: rgb(166, 204, 255);
+}
+
+td {
+  word-wrap: break-word !important;
+  max-width:400px !important;
+  font-size:1em !important;
+}
