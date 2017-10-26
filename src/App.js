@@ -7,12 +7,6 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showPersonData: false,
-      showMovieData: false,
-      showStarshipData: false,
-      showVehicleData: false,
-      showSpeciesData: false,
-      showPlanetData: false,
       personData: {results: [
         {name:'',
         birth_year:'',
@@ -30,7 +24,8 @@ class App extends Component {
         url: '',
         created: '',
         edited: '' 
-        }]},
+        }],
+      next: ''},
       movieData: {results: [
         {title: '',
         episode_id: '',
@@ -46,7 +41,8 @@ class App extends Component {
         url: '',
         created: '',
         edited: ''
-      }]},
+      }],
+      next:''},
       starshipData: {results: [{
         name: '',
         model: '',
@@ -66,7 +62,8 @@ class App extends Component {
         url: '',
         created: '',
         edited: ''
-      }]},
+      }],
+      next:''},
       vehicleData: {results: [{
         name: '',
         model: '',
@@ -84,7 +81,8 @@ class App extends Component {
         url: '',
         created: '',
         edited: ''
-      }]},
+      }],
+      next:''},
       speciesData: {results: [{
         name: '',
         classification: '',
@@ -101,7 +99,8 @@ class App extends Component {
         url: '',
         created: '',
         edited:''
-      }]},
+      }],
+      next:''},
       planetData: {results: [{
         name: '',
         diameter: '',
@@ -117,11 +116,13 @@ class App extends Component {
         url: '',
         created: '',
         edited: ''
-      }]}
+      }],
+      next:''}
     }
   }
 
   handlePersonNameChange(event) {
+    document.getElementsByClassName('page').remove()
     // not the cleanest solution but time constraint
     this.refs.personResults.removeAttribute('class')
     this.refs.movieResults.setAttribute('class','hidden')
@@ -129,12 +130,28 @@ class App extends Component {
     this.refs.vehicleResults.setAttribute('class','hidden')
     this.refs.speciesResults.setAttribute('class','hidden')
     this.refs.planetResults.setAttribute('class','hidden')
+    event.persist()
     request('https://swapi.co/api/people/?search='+event.target.value, (error,response,body) => {
       this.setState({personData: JSON.parse(body)});
+      let data = JSON.parse(body)
+      let numberOfPages = Math.ceil(data.count/10)
+      console.log(numberOfPages)
+      for(let i=1;i<=numberOfPages;i++) {
+        var div = document.createElement("button");
+        div.textContent = i
+        div.setAttribute('class','page')
+        div.addEventListener('click', () => {
+          request('https://swapi.co/api/people/?search='+event.target.value+'&page='+i, (error,message,body) => {
+            this.setState({personData: JSON.parse(body)});
+          })
+        })
+        document.body.appendChild(div);
+      } 
     })
   }
   
   handleMovieNameChange(event) {
+    document.getElementsByClassName('page').remove()
     // not the cleanest solution but time constraint
     this.refs.personResults.setAttribute('class','hidden')
     this.refs.movieResults.removeAttribute('class')
@@ -142,12 +159,28 @@ class App extends Component {
     this.refs.vehicleResults.setAttribute('class','hidden')
     this.refs.speciesResults.setAttribute('class','hidden')
     this.refs.planetResults.setAttribute('class','hidden')
+    event.persist()
     request('https://swapi.co/api/films/?search='+event.target.value, (error,response,body) => {
       this.setState({movieData: JSON.parse(body)});
+      let data = JSON.parse(body)
+      let numberOfPages = Math.ceil(data.count/10)
+      console.log(numberOfPages)
+      for(let i=1;i<=numberOfPages;i++) {
+        var div = document.createElement("button");
+        div.textContent = i
+        div.setAttribute('class','page')
+        div.addEventListener('click', () => {
+          request('https://swapi.co/api/films/?search='+event.target.value+'&page='+i, (error,message,body) => {
+            this.setState({movieData: JSON.parse(body)});
+          })
+        })
+        document.body.appendChild(div);
+      } 
     })
   }
   
   handleStarshipNameChange(event) {
+    document.getElementsByClassName('page').remove()
     // not the cleanest solution but time constraint
     this.refs.personResults.setAttribute('class','hidden')
     this.refs.movieResults.setAttribute('class','hidden')
@@ -155,12 +188,28 @@ class App extends Component {
     this.refs.vehicleResults.setAttribute('class','hidden')
     this.refs.speciesResults.setAttribute('class','hidden')
     this.refs.planetResults.setAttribute('class','hidden')
+    event.persist()
     request('https://swapi.co/api/starships/?search='+event.target.value, (error,response,body) => {
       this.setState({starshipData: JSON.parse(body)});
+      let data = JSON.parse(body)
+      let numberOfPages = Math.ceil(data.count/10)
+      console.log(numberOfPages)
+      for(let i=1;i<=numberOfPages;i++) {
+        var div = document.createElement("button");
+        div.textContent = i
+        div.setAttribute('class','page')
+        div.addEventListener('click', () => {
+          request('https://swapi.co/api/starships/?search='+event.target.value+'&page='+i, (error,message,body) => {
+            this.setState({starshipData: JSON.parse(body)});
+          })
+        })
+        document.body.appendChild(div);
+      } 
     })
   }
   
   handleStarshipModelChange(event) {
+    document.getElementsByClassName('page').remove()
     // not the cleanest solution but time constraint
     this.refs.personResults.setAttribute('class','hidden')
     this.refs.movieResults.setAttribute('class','hidden')
@@ -168,12 +217,28 @@ class App extends Component {
     this.refs.vehicleResults.setAttribute('class','hidden')
     this.refs.speciesResults.setAttribute('class','hidden')
     this.refs.planetResults.setAttribute('class','hidden')
+    event.persist()
     request('https://swapi.co/api/starships/?search='+event.target.value, (error,response,body) => {
       this.setState({starshipData: JSON.parse(body)});
+      let data = JSON.parse(body)
+      let numberOfPages = Math.ceil(data.count/10)
+      console.log(numberOfPages)
+      for(let i=1;i<=numberOfPages;i++) {
+        var div = document.createElement("button");
+        div.textContent = i
+        div.setAttribute('class','page')
+        div.addEventListener('click', () => {
+          request('https://swapi.co/api/starships/?search='+event.target.value+'&page='+i, (error,message,body) => {
+            this.setState({starshipData: JSON.parse(body)});
+          })
+        })
+        document.body.appendChild(div);
+      } 
     })
   }
   
   handleVehicleNameChange(event) {
+    document.getElementsByClassName('page').remove()
     // not the cleanest solution but time constraint
     this.refs.personResults.setAttribute('class','hidden')
     this.refs.movieResults.setAttribute('class','hidden')
@@ -181,12 +246,28 @@ class App extends Component {
     this.refs.vehicleResults.removeAttribute('class')
     this.refs.speciesResults.setAttribute('class','hidden')
     this.refs.planetResults.setAttribute('class','hidden')
+    event.persist()
     request('https://swapi.co/api/vehicles/?search='+event.target.value, (error,response,body) => {
       this.setState({vehicleData: JSON.parse(body)});
+      let data = JSON.parse(body)
+      let numberOfPages = Math.ceil(data.count/10)
+      console.log(numberOfPages)
+      for(let i=1;i<=numberOfPages;i++) {
+        var div = document.createElement("button");
+        div.textContent = i
+        div.setAttribute('class','page')
+        div.addEventListener('click', () => {
+          request('https://swapi.co/api/vehicles/?search='+event.target.value+'&page='+i, (error,message,body) => {
+            this.setState({vehicleData: JSON.parse(body)});
+          })
+        })
+        document.body.appendChild(div);
+      } 
     })
   }
   
   handleVehicleModelChange(event) {
+    document.getElementsByClassName('page').remove()
     // not the cleanest solution but time constraint
     this.refs.personResults.setAttribute('class','hidden')
     this.refs.movieResults.setAttribute('class','hidden')
@@ -194,12 +275,28 @@ class App extends Component {
     this.refs.vehicleResults.removeAttribute('class')
     this.refs.speciesResults.setAttribute('class','hidden')
     this.refs.planetResults.setAttribute('class','hidden')
+    event.persist()
     request('https://swapi.co/api/vehicles/?search='+event.target.value, (error,response,body) => {
       this.setState({vehicleData: JSON.parse(body)});
+      let data = JSON.parse(body)
+      let numberOfPages = Math.ceil(data.count/10)
+      console.log(numberOfPages)
+      for(let i=1;i<=numberOfPages;i++) {
+        var div = document.createElement("button");
+        div.textContent = i
+        div.setAttribute('class','page')
+        div.addEventListener('click', () => {
+          request('https://swapi.co/api/vehicles/?search='+event.target.value+'&page='+i, (error,message,body) => {
+            this.setState({vehicleData: JSON.parse(body)});
+          })
+        })
+        document.body.appendChild(div);
+      } 
     })
   }
   
   handleSpeciesNameChange(event) {
+    document.getElementsByClassName('page').remove()
     // not the cleanest solution but time constraint
     this.refs.personResults.setAttribute('class','hidden')
     this.refs.movieResults.setAttribute('class','hidden')
@@ -207,12 +304,29 @@ class App extends Component {
     this.refs.vehicleResults.setAttribute('class','hidden')
     this.refs.speciesResults.removeAttribute('class')
     this.refs.planetResults.setAttribute('class','hidden')
+    event.persist()
     request('https://swapi.co/api/species/?search='+event.target.value, (error,response,body) => {
       this.setState({speciesData: JSON.parse(body)});
+      let data = JSON.parse(body)
+      let numberOfPages = Math.ceil(data.count/10)
+      console.log(numberOfPages)
+      for(let i=1;i<=numberOfPages;i++) {
+        var div = document.createElement("button");
+        div.textContent = i
+        div.setAttribute('class','page')
+        div.addEventListener('click', () => {
+          request('https://swapi.co/api/species/?search='+event.target.value+'&page='+i, (error,message,body) => {
+            this.setState({speciesData: JSON.parse(body)});
+            console.log('body yay+'+body)
+          })
+        })
+        document.body.appendChild(div);
+      } 
     })
   }
   
   handlePlanetNameChange(event) {
+    document.getElementsByClassName('page').remove()
     // not the cleanest solution but time constraint
     this.refs.personResults.setAttribute('class','hidden')
     this.refs.movieResults.setAttribute('class','hidden')
@@ -220,55 +334,83 @@ class App extends Component {
     this.refs.vehicleResults.setAttribute('class','hidden')
     this.refs.speciesResults.setAttribute('class','hidden')
     this.refs.planetResults.removeAttribute('class')
+    event.persist()
     request('https://swapi.co/api/planets/?search='+event.target.value, (error,response,body) => {
       this.setState({planetData: JSON.parse(body)});
+      let data = JSON.parse(body)
+      let numberOfPages = Math.ceil(data.count/10)
+      console.log(numberOfPages)
+      for(let i=1;i<=numberOfPages;i++) {
+        var div = document.createElement("button");
+        div.textContent = i
+        div.setAttribute('class','page')
+        div.addEventListener('click', () => {
+          console.log('click')
+          request('https://swapi.co/api/planets/?search='+event.target.value+'&page='+i, (error,message,body) => {
+            this.setState({planetData: JSON.parse(body)});
+            console.log('body yay+'+body)
+          })
+        })
+        document.body.appendChild(div);
+      } 
     })
   }
 
   render() {
+  // not the best but works
+  Element.prototype.remove = function() {
+      this.parentElement.removeChild(this);
+  }
+  NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+      for(var i = this.length - 1; i >= 0; i--) {
+          if(this[i] && this[i].parentElement) {
+              this[i].parentElement.removeChild(this[i]);
+          }
+      }
+  }
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Swapi.co</h1>
         </header>
-        <div class='container'>
-          <div class='row'>
+        <div className='container'>
+          <div className='row'>
             <div className='searchBox'>
-              <div class='searchTitle'>Search for a Person</div>
-              <div class='searchInput'>
+              <div className='searchTitle'>Search for a Person</div>
+              <div className='searchInput'>
                 <input type='text' value={this.state.personName} onChange={this.handlePersonNameChange.bind(this)} placeholder='Enter person name'></input>
               </div>
             </div>
             <div className='searchBox'>
-              <div class='searchTitle'>Search for a Movie</div>
-              <div class='searchInput'>
+              <div className='searchTitle'>Search for a Movie</div>
+              <div className='searchInput'>
                 <input type='text' value={this.state.movieName} onChange={this.handleMovieNameChange.bind(this)} placeholder='Enter movie title'></input>
               </div>
             </div>
             <div className='searchBox'>
-              <div class='searchTitle'>Search for a Starship</div>
-              <div class='searchInput'>
+              <div className='searchTitle'>Search for a Starship</div>
+              <div className='searchInput'>
                 <input type='text' value={this.state.starshipName} onChange={this.handleStarshipNameChange.bind(this)} placeholder='Enter starship name'></input>
                 <input type='text' value={this.state.starshipModel} onChange={this.handleStarshipModelChange.bind(this)} placeholder='Enter starship model'></input>
               </div>
             </div>
             <div className='searchBox'>
-              <div class='searchTitle'>Search for a Vehicle</div>
-              <div class='searchInput'>
+              <div className='searchTitle'>Search for a Vehicle</div>
+              <div className='searchInput'>
                 <input type='text' value={this.state.vehicleName} onChange={this.handleVehicleNameChange.bind(this)} placeholder='Enter vehicle name'></input>
                 <input type='text' value={this.state.vehicleModel} onChange={this.handleVehicleModelChange.bind(this)} placeholder='Enter vehicle model'></input>
               </div>
             </div>
             <div className='searchBox'>
-              <div class='searchTitle'>Search for a Species</div>
-              <div class='searchInput'>
+              <div className='searchTitle'>Search for a Species</div>
+              <div className='searchInput'>
                 <input type='text' value={this.state.speciesName} onChange={this.handleSpeciesNameChange.bind(this)} placeholder='Enter species name'></input>
               </div>
             </div>
             <div className='searchBox'>
-              <div class='searchTitle'>Search for a Planet</div>
-              <div class='searchInput'>
+              <div className='searchTitle'>Search for a Planet</div>
+              <div className='searchInput'>
                 <input type='text' value={this.state.planetName} onChange={this.handlePlanetNameChange.bind(this)} placeholder='Enter planet name'></input>
               </div>
             </div>
@@ -325,7 +467,7 @@ class App extends Component {
         </div>
         <div ref='movieResults' className='hidden'>
           <h1>Results for Movie</h1>
-          <table id='Movie'>
+          <table>
             <thead>
               <tr>
                 <th>Title</th>
