@@ -3,7 +3,7 @@ Made for a developer test with create-react-app, request npm module and Bootstra
 Pagination is at bottom left to the table displayed.
 
 To start the app:
-'npm start' in the root directory
+'npm install' and 'npm start' in the root directory
 
 Improvements:
 - Sorting values in columns (ascending/descending)
